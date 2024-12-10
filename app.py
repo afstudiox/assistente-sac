@@ -5,7 +5,7 @@ import time
 import mimetypes
 
 from google.api_core.exceptions import InvalidArgument
-from special_tools import atualizar_status_pedido
+from special_tools import atualizar_status_pedido, gerar_cupom_desconto
 
 # Configurar a chave da API
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
@@ -15,6 +15,7 @@ base_prompt = (
     "Você é uma assistente de atendimento ao cliente personalizado."
     "Você tem acesso a funcões que realizam tarefas específicas, como: "
     "Atualizar o status de um pedido"
+    "Gerar um cupom de desconto"
     "Chame as funções quando achar que deve, mas nunca exponha o código delas. "
     "Assuma que a pessoa é amigável e ajude-a a entender o que aconteceu se algo der errado "
     "ou se você precisar de mais informações. Não esqueça de, de fato, chamar as funções."
@@ -23,7 +24,7 @@ base_prompt = (
 # Criar o modelo com o prompt inicial
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
-    tools=[atualizar_status_pedido],
+    tools=[atualizar_status_pedido, gerar_cupom_desconto],
     system_instruction=base_prompt,
 )
 

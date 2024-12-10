@@ -1,7 +1,8 @@
 import random
+import string
 
-# Lista de status possíveis
 status = ['Em preparo', 'A caminho', 'Entregue']
+
 
 def atualizar_status_pedido(id_pedido: str) -> dict:
     """
@@ -9,17 +10,19 @@ def atualizar_status_pedido(id_pedido: str) -> dict:
     Se o pedido não existir, atribui um status aleatório.
     """ 
     pedido_status = random.choice(status)
-
-    print(f"Pedido {id_pedido} atualizado para o status: {pedido_status}")
-    
+    print(f"Pedido {id_pedido} atualizado para o status: {pedido_status}")  
     return {"pedido": id_pedido, "status": pedido_status}
+
 
 def gerar_cupom_desconto() -> str:
     """
     Gera um cupom de desconto
     """
-    
-    return "Cupom de desconto gerado com sucesso"
+    desconto = random.randint(5, 80)
+
+    print(f"PROMO{desconto}")
+    return f"Cupom de desconto gerado: PROMO{desconto}"
+
 
 def registrar_reclamacao() -> str:
     """
