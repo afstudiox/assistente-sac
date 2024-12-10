@@ -5,7 +5,7 @@ import time
 import mimetypes
 
 from google.api_core.exceptions import InvalidArgument
-from special_tools import atualizar_status_pedido, gerar_cupom_desconto
+from special_tools import atualizar_status_pedido, gerar_cupom_desconto, registrar_reclamacao
 
 # Configurar a chave da API
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
@@ -24,7 +24,7 @@ base_prompt = (
 # Criar o modelo com o prompt inicial
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
-    tools=[atualizar_status_pedido, gerar_cupom_desconto],
+    tools=[atualizar_status_pedido, gerar_cupom_desconto, registrar_reclamacao],
     system_instruction=base_prompt,
 )
 

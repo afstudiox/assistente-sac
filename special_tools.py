@@ -1,5 +1,5 @@
 import random
-import string
+import time
 
 status = ['Em preparo', 'A caminho', 'Entregue']
 
@@ -24,11 +24,13 @@ def gerar_cupom_desconto() -> str:
     return f"Cupom de desconto gerado: PROMO{desconto}"
 
 
-def registrar_reclamacao() -> str:
+def registrar_reclamacao(id_pedido: str, descricao: str) -> str:
     """
-    Registra uma reclamação
+    Registra uma reclamação para um pedido específico.
     """
-    
-    return "Reclamação registrada com sucesso"
+
+    protocolo = f"{id_pedido}{random.randint(10, 999)}{int(time.time())}"
+    print(f"A reclamação para o pedido {id_pedido} foi registrada com sucesso. Número do Protocólo: {protocolo}\nDescrição: {descricao}")
+    return f"A reclamação para o pedido {id_pedido} foi registrada com sucesso. Número do Protocólo: {protocolo}\nDescrição: {descricao}"
 
 __all__ = ["atualizar_status_pedido", "gerar_cupom_desconto", "registrar_reclamacao"]
