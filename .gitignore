@@ -4,6 +4,9 @@
 # Ignorar arquivos de log
 *.log
 
+# Ignorar arquivos de backup
+*.old
+
 # Ignorar caches do Python
 __pycache__/
 *.pyc
