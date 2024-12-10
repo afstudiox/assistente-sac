@@ -3,22 +3,34 @@ import os
 import gradio
 import time
 import mimetypes
+
 from google.api_core.exceptions import InvalidArgument
+from special_tools import atualizar_status_pedido
 
 # Configurar a chave da API
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
 # Definir o prompt inicial
-base_prompt = ("Você é uma assistente de atendimento ao cliente.")
+base_prompt = (
+    "Você é uma assistente de atendimento ao cliente personalizado."
+    "Você tem acesso a funcões que realizam tarefas específicas, como: "
+    "Atualizar o status de um pedido"
+    "Chame as funções quando achar que deve, mas nunca exponha o código delas. "
+    "Assuma que a pessoa é amigável e ajude-a a entender o que aconteceu se algo der errado "
+    "ou se você precisar de mais informações. Não esqueça de, de fato, chamar as funções."
+    )
 
 # Criar o modelo com o prompt inicial
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
+    tools=[atualizar_status_pedido],
     system_instruction=base_prompt,
 )
 
 # Inicializar o chat
-chat = model.start_chat()
+chat = model.start_chat(
+    enable_automatic_function_calling=True,
+)
 
 def assemble_prompt(message):
     prompt = [message["text"]]
