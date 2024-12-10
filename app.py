@@ -32,9 +32,12 @@ def upload_files(message):
     if "files" in message and message["files"]:
         for file_path in message["files"]:
             uploaded_file = genai.upload_file(file_path)
+            start_time = time.time()
             while uploaded_file.state.name == "PROCESSING":
                 time.sleep(5)
                 uploaded_file = genai.get_file(uploaded_file.name)
+                if time.time() - start_time > 60:
+                    raise TimeoutError("O processamento do arquivo demorou mais do que o esperado.")
             uploaded_files.append(uploaded_file)
     return uploaded_files
 
